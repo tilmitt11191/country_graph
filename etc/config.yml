@@ -13,6 +13,8 @@ rotate_log_size: 1073741824 #1024*1024*1024B
 rotate_log_lines: 100000
 backup_log_count: 100
 
+wikipedia_top_page: "https://en.wikipedia.org/wiki/"
+
 pdf_downloading_path: ../../data/tmp/
 
 IEEE_website: "http://ieeexplore.ieee.org"
@@ -27,4 +29,6 @@ IEEE_num_of_spreading_by_keyword: 25
 IEEE_num_of_spreading_by_conference: "all"
 
 phantomJS_pass: "/usr/local/bin/phantomjs"
+phantomJS_load_timeout: 30
+
 myslq_url: "mysql+pymysql://alladmin:admin@localhost/paper_graph?charset=utf8"

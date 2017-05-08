@@ -30,6 +30,7 @@ class Log:
 			stream_handler.setLevel(Conf.getconf("loglevel_to_stdout", conffile=conffile))
 			logger.addHandler(stream_handler)
 
+
 		id_ = id(logger)
 		logger.setLevel(eval("logging."+loglevel))
 		logger.debug("return logger\n logfile[{logfile}]\n rotate_log_size[{rotate_log_size}]\n id[{id_}]".format(**locals()))
