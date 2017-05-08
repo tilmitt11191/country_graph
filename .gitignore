@@ -1,0 +1,8 @@
+__pycache__/
+node_modules/*
+var/log/*
+var/ss/*
+var/www/*
+data/*
+tmp/*
+!.gitkeep
