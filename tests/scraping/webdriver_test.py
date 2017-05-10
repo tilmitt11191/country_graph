@@ -25,15 +25,15 @@ class webdriver_test(unittest.TestCase):
 
 	def setUp(self):
 		pass
-
+	"""
 	def test_get(self):
 		self.log.debug(__class__.__name__ + "." + sys._getframe().f_code.co_name + " start")
 		url = "http://ieeexplore.ieee.org/Xplore/home.jsp"
 		self.driver.get(url)
 		self.driver.save_current_page("../../var/ss/test_get.png")
 		self.log.debug(__class__.__name__ + "." + sys._getframe().f_code.co_name + " finished")
-
-"""
+	"""
+	"""
 	def test_reconnect(self):
 		self.log.debug(__class__.__name__ + "." + sys._getframe().f_code.co_name + " start")
 		url = "http://ieeexplore.ieee.org/Xplore/home.jsp"
@@ -49,8 +49,12 @@ class webdriver_test(unittest.TestCase):
 		self.driver.save_current_page("../../var/ss/" + re.sub(r"/|:|\?|\.", "", url) + ".html")
 
 		self.log.debug(__class__.__name__ + "." + sys._getframe().f_code.co_name + " finished")
-"""
-
+	"""
+	def test_convert_svg_to_png(self):
+		self.log.debug(__class__.__name__ + "." + sys._getframe().f_code.co_name + " start")
+		svg_path = "../../var/flags/Algeria.svg"
+		self.driver.convert_svg_to_png(svg_path)
+		self.log.debug(__class__.__name__ + "." + sys._getframe().f_code.co_name + " finished")
 
 if __name__ == '__main__':
 	unittest.main()

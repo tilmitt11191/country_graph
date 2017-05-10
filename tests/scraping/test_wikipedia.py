@@ -2,6 +2,7 @@
 
 import unittest
 import sys,os
+import time
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/../../lib/utils")
 from log import Log
@@ -33,29 +34,65 @@ class wikipedia_test(unittest.TestCase):
 	"""
 	"""
 	def test_find_elements_of_continents_in_top_page(self):
-		self.log.debug(__class__.__name__ + "." + sys._getframe().f_code.co_name + " start")
+		self.log.debug(
+			__class__.__name__ + "." + sys._getframe().f_code.co_name + " start")
 		self.site.get(keywords="country")
-		elements = self.site.find_elements(by="xpath", tag=\
-			'//td[@class="navbox-list navbox-odd hlist"]/div/ul/li/a')
-		#<td class="navbox-list navbox-even hlist" style="text-align:left;border-left-width:2px;border-left-style:solid;width:100%;padding:0px">
-		for el in elements:
-			print("#" + el.text + "    " + el.get_attribute("href"))
-		self.log.debug(__class__.__name__ + "." + sys._getframe().f_code.co_name + " finished")
-		#Africa    https://en.wikipedia.org/wiki/List_of_sovereign_states_and_dependent_territories_in_Africa
-		#Antarctica    https://en.wikipedia.org/wiki/Territorial_claims_in_Antarctica
-		#Asia    https://en.wikipedia.org/wiki/List_of_sovereign_states_and_dependent_territories_in_Asia
-		#Europe    https://en.wikipedia.org/wiki/List_of_sovereign_states_and_dependent_territories_in_Europe
-		#North America    https://en.wikipedia.org/wiki/List_of_sovereign_states_and_dependent_territories_in_North_America
-		#Oceania    https://en.wikipedia.org/wiki/List_of_sovereign_states_and_dependent_territories_in_Oceania
-		#South America    https://en.wikipedia.org/wiki/List_of_sovereign_states_and_dependent_territories_in_South_America
-	"""
+		continents, urls = self.site.get_urls_of_continents()
+		self.assertEqual(
+			[
+			"Africa",
+			"Antarctica",
+			"Asia",
+			"Europe",
+			"North America",
+			"Oceania",
+			"South America"
+			], continents)
+		self.assertEqual(
+			[
+			"https://en.wikipedia.org/wiki/List_of_sovereign_states_and_dependent_territories_in_Africa",
+			"https://en.wikipedia.org/wiki/Territorial_claims_in_Antarctica",
+			"https://en.wikipedia.org/wiki/List_of_sovereign_states_and_dependent_territories_in_Asia",
+			"https://en.wikipedia.org/wiki/List_of_sovereign_states_and_dependent_territories_in_Europe",
+			"https://en.wikipedia.org/wiki/List_of_sovereign_states_and_dependent_territories_in_North_America",
+			"https://en.wikipedia.org/wiki/List_of_sovereign_states_and_dependent_territories_in_Oceania",
+			"https://en.wikipedia.org/wiki/List_of_sovereign_states_and_dependent_territories_in_South_America"
+			], urls)
 
+		self.log.debug(__class__.__name__ + "." + sys._getframe().f_code.co_name + " finished")
+	"""
+	"""
+	def test_get_urls_of_countries(self):
+		self.log.debug(
+			__class__.__name__ + "." + sys._getframe().f_code.co_name + " start")
+		countries, urls = self.site.get_urls_of_countries()
+		for country in countries:
+			print(country)
+		print("len(country): " + str(len(country)))
+		print("len(urls): " + str(len(urls)))
+		
+		self.log.debug(
+			__class__.__name__ + "." + sys._getframe().f_code.co_name + " finished")
+	"""
+	def test_get_flag(self):
+		self.log.debug(
+			__class__.__name__ + "." + sys._getframe().f_code.co_name + " start")
+		url = "https://en.wikipedia.org/wiki/Algeria"
+		tag = '//div[@class="suggestions-special"]'
+		self.site.driver.get(url, tag_to_wait=tag, by="xpath")
+		self.site.get_flag(path="../../data/flags/", filename="country")
+		# self.site.driver.save_current_page("../../var/ss/algeria_wait.png")
+		# self.site.driver.save_current_page("../../var/ss/algeria_wait.html")
+
+		self.log.debug(
+			__class__.__name__ + "." + sys._getframe().f_code.co_name + " finished")
+	"""
 	def test_get_flags_and_urls(self):
 		url = "https://en.wikipedia.org/wiki/List_of_sovereign_states_and_dependent_territories_in_Africa"
 		urls = self.site.get_flags(url=url)
 		#self.site.driver.save_current_page("../../var/ss/africa.png")
 		#self.site.driver.save_current_page("../../var/ss/africa.html")
-
+	"""
 
 if __name__ == '__main__':
 	unittest.main()
